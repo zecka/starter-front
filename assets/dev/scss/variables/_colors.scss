@@ -1,0 +1,19 @@
+$black: #000;
+$white: #fff;
+$dark-gray: #666666;
+$light-gray: #d8d8d8;
+$gray: #b2b2b2;
+$primary-color:#ff472f; 
+
+@mixin gradiantOpacity($color: $primary-color, $direction: to right, $start: 0%, $end: 100%, $invert: false) {
+	@if $invert == false{
+		background: -moz-linear-gradient($direction, rgba($color,1) $start,rgba($color,0) $end); /* FF3.6-15 */
+		background: -webkit-linear-gradient($direction, rgba($color,1) $start,rgba($color,0) $end); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient($direction, rgba($color,1) $start,rgba($color,0) $end); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		
+	}@else{
+		background: -moz-linear-gradient($direction, rgba($color,0) $start,rgba($color,1) $end); /* FF3.6-15 */
+		background: -webkit-linear-gradient($direction, rgba($color,0) $start,rgba($color,1) $end); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient($direction, rgba($color, 0) $start, rgba($color,1), 0 $end);
+	}
+}

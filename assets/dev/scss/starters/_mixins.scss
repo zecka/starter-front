@@ -1,0 +1,115 @@
+@mixin absolute($top: unset, $right: unset, $bottom: unset, $left: unset){
+	position: absolute;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+@mixin fixed($top: unset, $right: unset, $bottom: unset, $left: unset){
+	position: fixed;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+
+@function calculateRem($px) {
+	$remSize: $px / 16px;
+	@return $remSize * 1rem;
+}
+
+@mixin fontsize($px) {
+	font-size: calculateRem($px)
+}
+@mixin absCenter(){
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+
+@mixin unlist(){
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	li{
+		display: inline-block;
+	}
+}
+
+// Align the right way
+@mixin align($horizontal: true, $vertical: true) {
+	position: absolute;
+	@if ($horizontal and $vertical) {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	} @else if ($horizontal) {
+		left: 50%;
+		transform: translate(-50%, 0);
+	} @else if ($vertical) {
+		top: 50%;
+		transform: translate(0, -50%);
+	}
+}
+
+@mixin arrow($color: #000, $thickness: 11px, $width: 220px, $height: 150px ){
+	// HTML ELEMENT NEED TO CONTENT A SPAN <div class="classname"><span></span></div>
+	$angle: 45deg;
+	$xtranslate: $thickness/1.375;
+
+	width: $width;
+	height: $height;
+	//background:red;
+	position: relative;
+	span{
+
+		height: $thickness;
+		width: calc(100% - #{$xtranslate}) ;
+		background-color: $color;
+		display: block;
+		left: $xtranslate;
+	}
+	&::before,
+	&::after,
+	span{
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	&::before,
+	&::after{
+		content:"";
+		display: block;
+		background-color: $color;
+		width:$height / 1.5;
+		height: $thickness;
+	}
+	&::before{
+		transform: translateY(calc(-50% + #{$thickness / 2}))   rotateZ(-$angle);
+		transform-origin: left top
+	}
+	&::after{
+		transform: translateY(calc(-50% - #{$thickness / 2})) rotateZ($angle);
+		transform-origin: left bottom;
+	}
+
+}
+
+
+@mixin menufromleft($zindex){
+	@include fixed(0,0,0,0);
+	z-index: $zindex;
+	transform: translateX(-100%);
+	transition: all .3s $snappy;
+}
+
+@mixin img-hover() {
+	@include breakpoint(md-min) {
+		transition: all 0.6s;
+
+		&:hover {
+			transform: scale(1.05);
+		}
+	}
+}

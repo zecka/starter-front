@@ -1,0 +1,71 @@
+// ==========================
+//	BREAKPOINT Desktop FIRST
+// ==========================
+
+// SCREEN SIZE
+// (mobile < 768px )
+$screen-xs: 480px;
+$screen-sm: 768px; // Tablet Portrait >= 768px AND < 1024px
+$screen-md: 1024px; // Tablette Paysage >= 1024px AND < 1200px
+$screen-lg: 1200px; // Desktop >= 1200px
+
+// EXAMPLE USAGE:
+	 
+// @include breakpoint(sm) {
+// 	property: value;
+// }
+
+
+@mixin breakpoint($point) {
+	
+  	// =======================
+	//		Upper
+	// ========================= 
+	
+	// mobile fist so XS is applied to all screen
+  	@if $point == xs{
+   		@media (max-width: $screen-xs){ @content; }
+  	}
+  	// from sm screen size and upper
+  	@else if $point == sm {
+   		@media (max-width: $screen-sm){ @content; }
+  	}
+  	// from md screen size and upper
+  	@else if $point == md {
+   		@media (max-width: $screen-md ){ @content; }
+  	}
+  	@else if $point == md-min {
+   		@media (min-width: $screen-md + 1 ){ @content; }
+  	}
+  	@else if $point == sm-min {
+   		@media (min-width: $screen-sm + 1 ){ @content; }
+  	}
+  	@else if $point == xs-min {
+   		@media (min-width: $screen-xs + 1 ){ @content; }
+  	}
+  	
+  	@else if $point == landscape {
+   		@media (orientation : landscape){ @content; }
+  	}
+  	@else if $point == portrait {
+   		@media (orientation : portrait){ @content; }
+  	}
+  	
+  	@else if $point == mobile-landscape {
+   		@media  (min-width: $screen-xs + 1) and (orientation : landscape){ @content; }
+  	}
+  	@else if $point == mobile-portrait {
+   		@media  (max-width: $screen-xs) and (orientation : portrait){ @content; }
+  	}
+  	
+  	@else if $point == hover{
+	  	// Only screen who support hover
+	  	@media only screen and (min-resolution: 165dpi) and (max-resolution: 168dpi), only screen and (min-resolution: 155dpi) and (max-resolution: 160dpi), only screen and (min-resolution: 134dpi) and (max-resolution: 144dpi), only screen and (min-resolution: 120dpi) and (max-resolution: 130dpi), only screen and (max-resolution: 116dpi) { @content; }
+
+  	}
+  
+  	
+
+}
+
+
